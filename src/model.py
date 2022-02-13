@@ -57,8 +57,8 @@ class ingredient_searcher:
     def remove_selected(self, list_ingredients):
         ingredients = list_ingredients.copy()
         ingredient_to_remove = []
-        for ingredient in list_ingredients:
-            if ingredient in self.selected_ingredients:
+        for ingredient in self.selected_ingredients:
+            if ingredient in list_ingredients:
                 ingredient_to_remove.append(ingredient)
         for ingredient in ingredient_to_remove:
             ingredients.remove(ingredient)
@@ -66,15 +66,17 @@ class ingredient_searcher:
 
 
 if __name__ == "__main__":
-    ingredient_searcher = ingredient_searcher()
-    print(ingredient_searcher.get_ingredients("m"))
-    print(ingredient_searcher.get_ingredients("mi"))
-    print(ingredient_searcher.get_ingredients("mil"))
-    print(ingredient_searcher.get_ingredients("milk"))
-    ingredient_searcher.select_ingredient("milk powder")
-    print(
-        ingredient_searcher.remove_selected(ingredient_searcher.get_ingredients("milk"))
-    )
+
+
+    # ingredient_searcher = ingredient_searcher()
+    # print(ingredient_searcher.get_ingredients("m"))
+    # print(ingredient_searcher.get_ingredients("mi"))
+    # print(ingredient_searcher.get_ingredients("mil"))
+    # print(ingredient_searcher.get_ingredients("milk"))
+    # ingredient_searcher.select_ingredient("milk powder")
+    # print(
+    #     ingredient_searcher.remove_selected(ingredient_searcher.get_ingredients("milk"))
+    # )
     # print("------------------------------------------------------------")
     # print(ingredient_searcher.get_ingredients("sna"))
     # print(ingredient_searcher.get_ingredients("sn"))
