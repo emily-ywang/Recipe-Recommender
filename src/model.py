@@ -5,6 +5,8 @@ class ingredient_searcher():
     def __init__(self):
         self.ingredient_dict = self._get_ingredient_dict()
         self.last_searched = {}  # dp table used for get_ingredients
+        
+        self.selected_ingredients = []
 
     def _get_ingredient_dict(self):
         ingredients_file = open("resources/ingredients.txt", "r")
@@ -46,6 +48,22 @@ class ingredient_searcher():
         self.last_searched.update({user_input: out})
         return out
 
+    def select_ingredient(self, ingredient: string):
+        self.selected_ingredients.append(ingredient)
+        
+    def remove_ingredient(self, ingredient: string):
+        self.selected_ingredients.remove(ingredient)
+
+    def remove_selected(self, list_ingredients):
+        ingredient_to_remove = []
+        for ingredient in list_ingredients:
+            if ingredient in self.selected_ingredients:
+                ingredient_to_remove.append(ingredient)
+        for ingredient in ingredient_to_remove:
+            list_ingredients.remove(ingredient)
+        return list_ingredients
+
+
 
 if __name__ == "__main__":
     ingredient_searcher = ingredient_searcher()
@@ -53,10 +71,12 @@ if __name__ == "__main__":
     print(ingredient_searcher.get_ingredients("mi"))
     print(ingredient_searcher.get_ingredients("mil"))
     print(ingredient_searcher.get_ingredients("milk"))
-    print("------------------------------------------------------------")
-    print(ingredient_searcher.get_ingredients("sna"))
-    print(ingredient_searcher.get_ingredients("sn"))
-    print("------------------------------------------------------------")
-    print(ingredient_searcher.get_ingredients(""))
-    print("------------------------------------------------------------")
-    print(ingredient_searcher.get_ingredients("abcdef"))
+    ingredient_searcher.select_ingredient("milk powder")
+    print(ingredient_searcher.remove_selected(ingredient_searcher.get_ingredients("milk")))
+    # print("------------------------------------------------------------")
+    # print(ingredient_searcher.get_ingredients("sna"))
+    # print(ingredient_searcher.get_ingredients("sn"))
+    # print("------------------------------------------------------------")
+    # print(ingredient_searcher.get_ingredients(""))
+    # print("------------------------------------------------------------")
+    # print(ingredient_searcher.get_ingredients("abcdef"))
