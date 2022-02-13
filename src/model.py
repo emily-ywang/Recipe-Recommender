@@ -55,13 +55,14 @@ class ingredient_searcher:
         self.selected_ingredients.remove(ingredient)
 
     def remove_selected(self, list_ingredients):
+        ingredients = list_ingredients.copy()
         ingredient_to_remove = []
         for ingredient in list_ingredients:
             if ingredient in self.selected_ingredients:
                 ingredient_to_remove.append(ingredient)
         for ingredient in ingredient_to_remove:
-            list_ingredients.remove(ingredient)
-        return list_ingredients
+            ingredients.remove(ingredient)
+        return ingredients
 
 
 if __name__ == "__main__":
