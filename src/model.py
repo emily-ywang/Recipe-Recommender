@@ -64,23 +64,3 @@ class ingredient_searcher:
             ingredients.remove(ingredient)
         return ingredients
 
-
-if __name__ == "__main__":
-
-
-    # ingredient_searcher = ingredient_searcher()
-    # print(ingredient_searcher.get_ingredients("m"))
-    # print(ingredient_searcher.get_ingredients("mi"))
-    # print(ingredient_searcher.get_ingredients("mil"))
-    # print(ingredient_searcher.get_ingredients("milk"))
-    # ingredient_searcher.select_ingredient("milk powder")
-    # print(
-    #     ingredient_searcher.remove_selected(ingredient_searcher.get_ingredients("milk"))
-    # )
-    # print("------------------------------------------------------------")
-    # print(ingredient_searcher.get_ingredients("sna"))
-    # print(ingredient_searcher.get_ingredients("sn"))
-    # print("------------------------------------------------------------")
-    # print(ingredient_searcher.get_ingredients(""))
-    # print("------------------------------------------------------------")
-    # print(ingredient_searcher.get_ingredients("abcdef"))
