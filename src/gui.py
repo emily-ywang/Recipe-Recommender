@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 from functools import partial
 from tkinter import LEFT
@@ -6,9 +7,11 @@ from model import ingredient_searcher
 from bing_image_downloader import downloader
 import string
 
+from src.RecipeRecommender import find_recipe
+
 ing_searcher = ingredient_searcher()
 ingredients = ing_searcher.get_ingredients("")
-recipes = ["eggs", "bacon", "pie", "hotdog"]
+recipes = {}
 ing_frame = None
 sel_frame = None
 buttons = []
@@ -18,16 +21,25 @@ sel = ing_searcher.selected_ingredients
 sv = None
 search_bar = None
 get_button = None
+recipe_imgs = []
+recipe_btns = []
 
 # pull image from bing
 def get_image(recipe: string):
-    downloader.download(recipe, limit=1,  output_dir='resources', adult_filter_off=True,
+    downloader.download(recipe, limit=1,  output_dir='resources/pics', adult_filter_off=True,
                         force_replace=False, timeout=60, verbose=False)
 
-# move on to recipes page
+# button to recipes
 def to_recipes():
     clear_ingredients_window()
+    # recipes = find_recipe(sel)
     draw_recipes()
+
+# open recipe
+def open_recipe(rec: string):
+    popup = tk.Toplevel()
+    label = tk.Label(popup, text=recipes[rec])
+    label.grid(row=0, column=0)
 
 # draw recipe buttons
 def draw_recipes():
@@ -35,18 +47,24 @@ def draw_recipes():
     c = 0
     ing_frame.pack_forget()
     sel_frame.pack_forget()
+    dir = 'resources/pics'
+    for f in os.listdir(dir):
+        os.remove(os.path.join(dir, f))
     for rec in recipes:
-        #get_image(rec)
-        image = Image.open("resources/" + rec + "/Image_1.jpg")
-        image = image.resize((50, 50), Image.ANTIALIAS)
+        get_image(rec)
+        image = Image.open("resources/pics/" + rec + "/Image_1.jpg")
+        image = image.resize((100, 100), Image.ANTIALIAS)
         img = ImageTk.PhotoImage(image)
-        button = tk.Button(ing_frame, text=rec, image=img, compound=LEFT, pady=20)
-        button.grid(row=1, column=1)
-        window.mainloop()
+        recipe_imgs.append(img)
+        button = tk.Button(window, text=rec, image=img, compound=LEFT, pady=20, command=partial(open_recipe, rec))
+        recipe_btns.append(button)
+        button.grid(row=r, column=c)
         c += 1
         if c > 2:
             c = 0
             r += 1
+    window.mainloop()
+
 
 # clear ingredients window
 def clear_ingredients_window():
@@ -128,7 +146,7 @@ def load_ingredient_screen():
     search_bar = tk.Entry(window, width=20, bg="white", fg="black", textvariable=sv)
     search_bar.pack(pady=20)
     load_ingredient_buttons()
-    get_button = tk.Button(window, text="Get recpes", command=partial(to_recipes), fg="black")
+    get_button = tk.Button(window, text="Get recipes", command=partial(to_recipes), fg="black")
     get_button.place(x=350)
     get_button.place(y=700)
 
@@ -140,3 +158,5 @@ if __name__ == "__main__":
     window.geometry("500x800")
     load_ingredient_screen()
     window.mainloop()
+
+

@@ -6,12 +6,12 @@ import re
 
 def find_recipe(ingredients_selected):
     # read in data, store as dataframe
-    df = pd.read_csv("dataframe.csv")
+    df = pd.read_csv("resources/dataframe.csv")
     df.dropna(inplace=True)
     df.drop(["Unnamed: 0", "Image_Name", "Ingredients"], axis=1, inplace=True)
     df["Cleaned_Ingredients"] = df["Cleaned_Ingredients"].str.replace("\d+", "")
     df["Cleaned_Ingredients"] = df["Cleaned_Ingredients"].str.replace("/", "")
-    text_file = open("ingredients.txt", "r")
+    text_file = open("resources/ingredients.txt", "r")
 
     # read whole file to a string
     ingre = text_file.read()

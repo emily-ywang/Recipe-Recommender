@@ -1,0 +1,8 @@
+HI and welcome to the Recipe recommender v1.0
+
+With this app you can enter ingredients you have in your pantry and it will output the recipes that you can make with them,
+along with directions to follow.
+
+These recipes and ingredients are pulled from a large database available to the public.
+
+Lets get started
