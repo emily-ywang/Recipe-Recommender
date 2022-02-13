@@ -22,7 +22,7 @@ class ingredient_searcher():
 
         return ingredients_dict
 
-    def get_ingredients(self, user_input):
+    def get_ingredients(self, user_input: string) -> list:
         if user_input in self.ingredient_dict:
             out = self.ingredient_dict.get(user_input)
             self.last_searched = {}
@@ -36,11 +36,11 @@ class ingredient_searcher():
             return out
 
         out = self.get_ingredients(user_input[:-1]).copy()
-        remove = []
+        words_to_remove = []
         for word in out:
             if not word.startswith(user_input):
-                remove.append(word)
-        for word in remove:
+                words_to_remove.append(word)
+        for word in words_to_remove:
             out.remove(word)
 
         self.last_searched.update({user_input: out})
@@ -58,3 +58,5 @@ if __name__ == "__main__":
     print(ingredient_searcher.get_ingredients("sn"))
     print("------------------------------------------------------------")
     print(ingredient_searcher.get_ingredients(""))
+    print("------------------------------------------------------------")
+    print(ingredient_searcher.get_ingredients("abcdef"))
