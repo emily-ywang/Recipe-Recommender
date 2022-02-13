@@ -13,7 +13,10 @@ sv = None
 
 # on ingredient click
 def ing_select_click(ing):
-    ing_searcher.select(ing)
+    global ingredients
+    ing_searcher.select_ingredient(ing)
+    ingredients = ing_searcher.remove_selected(ing_searcher.get_ingredients(sv.get()))
+    load_ingredient_buttons()
     # ingredients.remove(ing)
     # print(ing)
 
