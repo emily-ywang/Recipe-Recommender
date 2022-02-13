@@ -1,9 +1,10 @@
 import string
 
-class model():
+
+class ingredient_searcher():
     def __init__(self):
         self.ingredient_dict = self._get_ingredient_dict()
-        self.last_searched = {}
+        self.last_searched = {}  # dp table used for get_ingredients
 
     def _get_ingredient_dict(self):
         ingredients_file = open("resources/ingredients.txt", "r")
@@ -20,7 +21,6 @@ class model():
                 ingredients_dict[ingredient[0]] = [ingredient]
 
         return ingredients_dict
-
 
     def get_ingredients(self, user_input):
         if user_input in self.ingredient_dict:
@@ -42,15 +42,19 @@ class model():
                 remove.append(word)
         for word in remove:
             out.remove(word)
-        
+
         self.last_searched.update({user_input: out})
         return out
 
 
 if __name__ == "__main__":
-    model = model()
-    print(model.get_ingredients("m"))
-    print(model.get_ingredients("mi"))
-    print(model.get_ingredients("mil"))
-    print(model.get_ingredients("milk"))
-    print(model.get_ingredients("s"))
+    ingredient_searcher = ingredient_searcher()
+    print(ingredient_searcher.get_ingredients("m"))
+    print(ingredient_searcher.get_ingredients("mi"))
+    print(ingredient_searcher.get_ingredients("mil"))
+    print(ingredient_searcher.get_ingredients("milk"))
+    print("------------------------------------------------------------")
+    print(ingredient_searcher.get_ingredients("sna"))
+    print(ingredient_searcher.get_ingredients("sn"))
+    print("------------------------------------------------------------")
+    print(ingredient_searcher.get_ingredients(""))
