@@ -4,15 +4,22 @@ from functools import partial
 from model import ingredient_searcher
 
 ing_searcher = ingredient_searcher()
-
 ingredients = ing_searcher.get_ingredients("")
 ing_frame = None
 sel_frame = None
 buttons = []
 sel_buttons = []
 window = None
+recipe_window = None
 sel = ing_searcher.selected_ingredients
 sv = None
+
+# move on to recipes page
+def to_recipes():
+    tk.Toplevel(recipe_window)
+    window.title("Recipe Recommender 1.0")
+    window.geometry("500x800")
+
 
 # on ingredient click
 def ing_select_click(ing):
@@ -86,6 +93,9 @@ def load_ingredient_screen():
     search_bar = tk.Entry(window, width=20, bg="white", fg="black", textvariable=sv)
     search_bar.pack(pady=20)
     load_ingredient_buttons()
+    b = tk.Button(window, text="Get recpes", command=partial(to_recipes), bg="green")
+    b.place(x=350)
+    b.place(y=700)
 
 # main method
 if __name__ == "__main__":
