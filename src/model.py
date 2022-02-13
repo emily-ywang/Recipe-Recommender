@@ -1,11 +1,11 @@
 import string
 
 
-class ingredient_searcher():
+class ingredient_searcher:
     def __init__(self):
         self.ingredient_dict = self._get_ingredient_dict()
         self.last_searched = {}  # dp table used for get_ingredients
-        
+
         self.selected_ingredients = []
 
     def _get_ingredient_dict(self):
@@ -50,7 +50,7 @@ class ingredient_searcher():
 
     def select_ingredient(self, ingredient: string):
         self.selected_ingredients.append(ingredient)
-        
+
     def remove_ingredient(self, ingredient: string):
         self.selected_ingredients.remove(ingredient)
 
@@ -64,7 +64,6 @@ class ingredient_searcher():
         return list_ingredients
 
 
-
 if __name__ == "__main__":
     ingredient_searcher = ingredient_searcher()
     print(ingredient_searcher.get_ingredients("m"))
@@ -72,7 +71,9 @@ if __name__ == "__main__":
     print(ingredient_searcher.get_ingredients("mil"))
     print(ingredient_searcher.get_ingredients("milk"))
     ingredient_searcher.select_ingredient("milk powder")
-    print(ingredient_searcher.remove_selected(ingredient_searcher.get_ingredients("milk")))
+    print(
+        ingredient_searcher.remove_selected(ingredient_searcher.get_ingredients("milk"))
+    )
     # print("------------------------------------------------------------")
     # print(ingredient_searcher.get_ingredients("sna"))
     # print(ingredient_searcher.get_ingredients("sn"))
