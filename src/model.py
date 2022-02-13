@@ -3,8 +3,7 @@ import string
 class model():
     def __init__(self):
         self.ingredient_dict = self._get_ingredient_dict()
-        self.last_searched = ""
-        self.remaining = None
+        self.last_searched = {}
 
     def _get_ingredient_dict(self):
         ingredients_file = open("resources/ingredients.txt", "r")
@@ -24,18 +23,27 @@ class model():
 
 
     def get_ingredients(self, user_input):
-        if not self.remaining:
-            out = self.ingredient_dict.get(user_input[0])
-        else:
-            out = self.remaining
-            remove = []
-            for word in out:
-                if not word.startswith(user_input):
-                    remove.append(word)
-            for word in remove:
-                out.remove(word)
-        self.last_searched = user_input
-        self.remaining = out
+        if user_input in self.ingredient_dict:
+            out = self.ingredient_dict.get(user_input)
+            self.last_searched = {}
+            return out
+        if user_input == "":
+            self.last_searched = {}
+            return self.ingredient_dict.get("a")
+
+        if user_input in self.last_searched:
+            out = self.last_searched.get(user_input)
+            return out
+
+        out = self.get_ingredients(user_input[:-1]).copy()
+        remove = []
+        for word in out:
+            if not word.startswith(user_input):
+                remove.append(word)
+        for word in remove:
+            out.remove(word)
+        
+        self.last_searched.update({user_input: out})
         return out
 
 
@@ -45,3 +53,4 @@ if __name__ == "__main__":
     print(model.get_ingredients("mi"))
     print(model.get_ingredients("mil"))
     print(model.get_ingredients("milk"))
+    print(model.get_ingredients("s"))
